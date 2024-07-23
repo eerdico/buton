@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom m3u8 HTML5 Video Player with HLS</title>
+    <title>Custom m3u8 HTML5 Video Player with HLS - buton.org</title>
+	<meta name="description" content="Custom HTML5 video player with HLS support. Enter or select a random m3u8 stream URL for seamless video playback. Ad-free and donation-supported.">
+    <meta name="keywords" content="HTML5 video player, HLS.js, m3u8 stream, custom video player, live streaming, ad-free video, buton.org, seamless playback">
     <style>
         body {
             margin: 0;
@@ -20,7 +22,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 750px;
-            padding: 50px;
+            padding: 50px 50px 25px 50px;
             box-sizing: border-box;
             margin-bottom: 20px;
             /* Add this to ensure the container height adjusts with content */
@@ -91,6 +93,18 @@
             width: 750px;
             box-sizing: border-box;
         }
+		.footer a,
+		.footer a:visited {
+        color: #0073e6; /* Link color */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make text bold */
+        transition: color 0.3s ease; /* Smooth transition for color change */
+		}
+
+		.footer a:hover {
+			color: #005bb5; /* Darker color on hover */
+			text-decoration: underline; /* Underline on hover */
+		}
         .header {
             font-size: 36px;
             padding-bottom: 20px;
@@ -98,7 +112,7 @@
             width: 750px;
             font-family: "Playwrite HR", cursive, Arial, sans-serif;
             font-optical-sizing: auto;
-            font-weight: 400;
+            font-weight: 750;
             font-style: normal;
             box-sizing: border-box;
         }
@@ -125,7 +139,7 @@
 
     <div class="footer">
         <b>Copyright © 2024</b><br />
-        This is an ad-free, non-commercial project funded entirely through donations. If you’d like to support it, you can make a contribution via Ko-Fi.<br />
+        This is an ad-free, non-commercial project funded entirely through donations. If you’d like to support it, you can make a contribution via <a target="_blank" href="https://ko-fi.com/eerdi" title="Support us on Ko-Fi">Ko-Fi</a>.<br />
         How It Works | Contact | Privacy Policy | Terms of Service
     </div>
 
