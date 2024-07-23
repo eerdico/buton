@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom m3u8 HTML5 Video Player with HLS</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #efefef;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            padding: 25px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        #video-container {
+            position: relative;
+            width: 750px;
+            height: 422px;
+            margin-bottom: 20px;
+        }
+        video {
+            width: 750px;
+            height: 422px;
+        }
+        #loading-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 750px;
+            height: 422px;
+            display: none;
+            z-index: 10;
+            object-fit: cover;
+        }
+        #stream-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 750px;
+            margin-top: 10px;
+        }
+        #stream-controls input {
+            padding: 5px;
+            font-size: 12px;
+            margin-right: 5px;
+            width: 400px;
+            box-sizing: border-box;
+        }
+        #stream-controls button {
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        video::-webkit-media-controls-current-time-display,
+        video::-webkit-media-controls-time-remaining-display,
+        video::-webkit-media-controls-timeline {
+            display: none;
+        }
+        video::-moz-media-controls-current-time-display,
+        video::-moz-media-controls-time-remaining-display,
+        video::-moz-media-controls-timeline {
+            display: none;
+        }
+        video::-ms-media-controls-current-time-display,
+        video::-ms-media-controls-time-remaining-display,
+        video::-ms-media-controls-timeline {
+            display: none;
+        }
+        .footer {
+            font-size: 11px;
+            line-height: 2;
+            padding: 5px;
+            text-align: center;
+            width: 600px;
+            box-sizing: border-box;
+        }
+        .header {
+            font-size: 36px;
+            padding-bottom: 20px;
+            text-align: center;
+            width: 600px;
+            font-family: "Playwrite HR", cursive;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            box-sizing: border-box;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+HR&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">buton.org</div>
+
+    <div id="container">
+        <div id="video-container">
+            <video id="video" controls autoplay muted></video>
+            <img id="loading-icon" src="https://j.gifs.com/mLkoda.gif" alt="Loading...">
+        </div>
+
+        <div id="stream-controls">
+            <input type="text" id="streamInput" placeholder="Enter stream URL here" />
+            <button id="playStreamBtn">Play Stream</button>
+            <button id="randomLinkBtn">Get a Link</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <b>Copyright © 2024</b><br />
+        This is an ad-free, non-commercial project funded entirely through donations. If you’d like to support it, you can make a contribution via Ko-Fi.<br />
+        How It Works | Contact | Privacy Policy | Terms of Service
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const playStreamBtn = document.getElementById('playStreamBtn');
+            const randomLinkBtn = document.getElementById('randomLinkBtn');
+            const streamInput = document.getElementById('streamInput');
+            const loadingIcon = document.getElementById('loading-icon');
+
+            const streams = [
+                'https://turkmedya-live.ercdn.net/tv360/tv360.m3u8',
+                'https://dogus-live.daioncdn.net/dmax/playlist.m3u8',
+                'https://1hskrdto.rocketcdn.com/fenerbahcetv.smil/playlist.m3u8'
+            ];
+
+            let hls;
+            function loadStream(src) {
+                showLoadingIcon();
+                if (hls) {
+                    hls.destroy();
+                }
+                if (Hls.isSupported()) {
+                    hls = new Hls();
+                    hls.loadSource(src);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+                    hls.on(Hls.Events.FRAG_LOADED, hideLoadingIcon);
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = src;
+                    video.addEventListener('loadedmetadata', () => video.play());
+                    video.addEventListener('canplay', hideLoadingIcon);
+                }
+            }
+
+            function showLoadingIcon() {
+                loadingIcon.style.display = 'block';
+            }
+
+            function hideLoadingIcon() {
+                loadingIcon.style.display = 'none';
+            }
+
+            function getRandomStream() {
+                const randomIndex = Math.floor(Math.random() * streams.length);
+                return streams[randomIndex];
+            }
+
+            playStreamBtn.addEventListener('click', () => {
+                const streamUrl = streamInput.value.trim();
+                if (streamUrl) {
+                    loadStream(streamUrl);
+                } else {
+                    alert('Please enter a valid stream URL.');
+                }
+            });
+
+            randomLinkBtn.addEventListener('click', () => {
+                const randomStream = getRandomStream();
+                streamInput.value = randomStream;
+            });
+
+            loadStream('https://turkmedya-live.ercdn.net/tv360/tv360.m3u8');
+        });
+    </script>
+</body>
+</html>
