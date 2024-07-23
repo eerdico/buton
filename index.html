@@ -26,7 +26,6 @@
             padding: 50px 50px 25px 50px;
             box-sizing: border-box;
             margin-bottom: 20px;
-            /* Add this to ensure the container height adjusts with content */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -94,18 +93,17 @@
             width: 750px;
             box-sizing: border-box;
         }
-		.footer a,
-		.footer a:visited {
-        color: #0073e6; /* Link color */
-        text-decoration: none; /* Remove underline */
-        font-weight: bold; /* Make text bold */
-        transition: color 0.3s ease; /* Smooth transition for color change */
-		}
-
-		.footer a:hover {
-			color: #005bb5; /* Darker color on hover */
-			text-decoration: underline; /* Underline on hover */
-		}
+        .footer a,
+        .footer a:visited {
+            color: #0073e6; /* Link color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Make text bold */
+            transition: color 0.3s ease; /* Smooth transition for color change */
+        }
+        .footer a:hover {
+            color: #005bb5; /* Darker color on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
         .header {
             font-size: 36px;
             padding-bottom: 20px;
@@ -116,6 +114,53 @@
             font-weight: 750;
             font-style: normal;
             box-sizing: border-box;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            font-size: 14px;
+	    line-height: 1.5;
+	    background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+.modal a,
+        .modal a:visited {
+            color: #0073e6; /* Link color */
+            text-decoration: none; /* Remove underline */
+            font-weight: bold; /* Make text bold */
+            transition: color 0.3s ease; /* Smooth transition for color change */
+        }
+        .modal a:hover {
+            color: #005bb5; /* Darker color on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,7 +186,58 @@
     <div class="footer">
         <b>Copyright © 2024</b><br />
         This is an ad-free, non-commercial project funded entirely through donations. If you’d like to support it, you can make a contribution via <a target="_blank" href="https://ko-fi.com/eerdi" title="Support us on Ko-Fi">Ko-Fi</a>.<br />
-        How It Works | Contact | Privacy Policy | Terms of Service
+        <a href="#" id="howItWorksLink">How It Works</a> | 
+        <a href="#" id="contactLink">Contact</a> | 
+        <a href="#" id="privacyPolicyLink">Privacy Policy</a> | 
+        <a href="#" id="termsOfServiceLink">Terms of Service</a>
+    </div>
+
+    <div id="howItWorksModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeHowItWorks">&times;</span>
+            <h2>How It Works</h2>
+            <p>1. <strong>Enter Stream URL:</strong> Type or paste a valid m3u8 stream URL into the input field.</p>
+        <p>2. <strong>Play Stream:</strong> Click the "Play Stream" button to start watching the stream.</p>
+        <p>3. <strong>Get Random Link:</strong> Click the "Get a Random Link" button to automatically populate the input field with a random stream URL.</p>
+        <p>4. <strong>Controls:</strong> Use the video player controls to pause, play, or adjust the volume.</p>
+        <p>Enjoy seamless, ad-free streaming!</p>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeContact">&times;</span>
+            <h2>Contact</h2>
+            <p>We'd love to hear from you! If you have any questions, comments, or feedback, please reach out to us via email.</p>
+        <p>You can contact us at: <a href="mailto:info@buton.org">info@buton.org</a></p>
+        <p>We will do our best to respond to your inquiry as soon as possible.</p>
+        </div>
+    </div>
+
+    <div id="privacyPolicyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closePrivacyPolicy">&times;</span>
+            <h2>Privacy Policy</h2>
+         <p>Your privacy is important to us. This website does not collect or store any personal data. We do not require registration, do not use cookies, and do not track or analyze user behavior.</p>
+        <p>This webpage is a static HTML file, and we do not have control over any data collection practices related to the GitHub Pages hosting service. For more information on GitHub's data practices, please refer to their <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" target="_blank">Privacy Statement</a>.</p>
+        <p>Your visit to this website is generally anonymous, and we are committed to providing a secure and ad-free experience.</p>
+<p>If you have any questions or concerns, please feel free to contact us via email at <a href="mailto:info@buton.org">info@buton.org</a>.</p>
+        </div>
+    </div>
+
+    <div id="termsOfServiceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeTermsOfService">&times;</span>
+            <h2>Terms of Service</h2>
+                   <p>Welcome to our video streaming player. By using this website, you agree to the following terms:</p>
+        <ul>
+            <li><strong>Stream Usage:</strong> You can play any streams via the links you provide. We do not control, monitor, or host the content of these streams.</li>
+            <li><strong>Player Service:</strong> We are solely providing a video player service. We are not responsible for the content or functionality of the streams, as we are not the streamers.</li>
+            <li><strong>Public Links:</strong> The random links we provide for testing purposes are publicly available online. We do not host or control these links.</li>
+            <li><strong>Content Concerns:</strong> If you are the owner of any content linked here and have concerns, please contact us. We will review and, if necessary, remove the content upon request.</li>
+        </ul>
+        <p>For any issues or requests, please email us at <a href="mailto:info@buton.org">info@buton.org</a>.</p>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -154,34 +250,10 @@
             const loadingIcon = document.getElementById('loading-icon');
 
             const streams = [
-                		'https://tinyurl.com/bo-trt1',
-				'https://tinyurl.com/bo-trthaber',
-				'https://tinyurl.com/bo-trtmuzik',
-				'https://tinyurl.com/bo-trtturk',
-				'https://tinyurl.com/bo-trtbelgesel',
-				'https://tinyurl.com/bo-trtworld',
-				'https://tinyurl.com/bo-dmax',
-				'https://tinyurl.com/bo-tlct',
-				'https://tinyurl.com/bo-lovenature',
-				'https://tinyurl.com/bo-tarimt',
-				'https://tinyurl.com/bo-tvsekiz',
-				'https://tinyurl.com/bo-kanald',
-				'https://tinyurl.com/bo-tev2',
-				'https://tinyurl.com/bo-star',
-				'https://tinyurl.com/bo-show',
-				'https://tinyurl.com/bo-360t',
-				'https://tinyurl.com/bo-kanal7',
-				'https://tinyurl.com/bo-beyaztv',
-				'https://tinyurl.com/bo-tivi4',
-				'https://tinyurl.com/bo-haberturk',
-				'https://tinyurl.com/bo-ntvi',
-				'https://tinyurl.com/bo-tvnet',
-				'https://tinyurl.com/bo-bloomberght',
-		    		'https://tinyurl.com/bo-dhajans',
-				'https://tinyurl.com/bo-kanalavrupa',
+                		'https://ott.tv5monde.com/Content/HLS/Live/channel(europe)/variant.m3u8',
+				'http://fl2.moveonjoy.com/FOX_News_Channel/index.m3u8',
+				'http://41.205.93.154/FOXBUSINESS/index.m3u8',
 				'https://tinyurl.com/bo-meclis',
-				'https://tinyurl.com/bo-halk',
-				'https://tinyurl.com/bo-sports',
 				'https://tinyurl.com/bo-fener'
             ];
 
@@ -231,7 +303,52 @@
                 streamInput.value = randomStream;
             });
 
-            loadStream('https://test-streams.mux.dev/tos_ismc/main.m3u8');
+            loadStream('https://ntv1.akamaized.net/hls/live/2014075/NASA-NTV1-HLS/master.m3u8');
+
+            // Modal functionality
+            const modals = {
+                howItWorks: document.getElementById('howItWorksModal'),
+                contact: document.getElementById('contactModal'),
+                privacyPolicy: document.getElementById('privacyPolicyModal'),
+                termsOfService: document.getElementById('termsOfServiceModal')
+            };
+            const links = {
+                howItWorks: document.getElementById('howItWorksLink'),
+                contact: document.getElementById('contactLink'),
+                privacyPolicy: document.getElementById('privacyPolicyLink'),
+                termsOfService: document.getElementById('termsOfServiceLink')
+            };
+            const closes = {
+                howItWorks: document.getElementById('closeHowItWorks'),
+                contact: document.getElementById('closeContact'),
+                privacyPolicy: document.getElementById('closePrivacyPolicy'),
+                termsOfService: document.getElementById('closeTermsOfService')
+            };
+
+            function openModal(modal) {
+                modal.style.display = 'block';
+            }
+
+            function closeModal(modal) {
+                modal.style.display = 'none';
+            }
+
+            links.howItWorks.addEventListener('click', () => openModal(modals.howItWorks));
+            links.contact.addEventListener('click', () => openModal(modals.contact));
+            links.privacyPolicy.addEventListener('click', () => openModal(modals.privacyPolicy));
+            links.termsOfService.addEventListener('click', () => openModal(modals.termsOfService));
+
+            closes.howItWorks.addEventListener('click', () => closeModal(modals.howItWorks));
+            closes.contact.addEventListener('click', () => closeModal(modals.contact));
+            closes.privacyPolicy.addEventListener('click', () => closeModal(modals.privacyPolicy));
+            closes.termsOfService.addEventListener('click', () => closeModal(modals.termsOfService));
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modals.howItWorks) closeModal(modals.howItWorks);
+                if (event.target === modals.contact) closeModal(modals.contact);
+                if (event.target === modals.privacyPolicy) closeModal(modals.privacyPolicy);
+                if (event.target === modals.termsOfService) closeModal(modals.termsOfService);
+            });
         });
     </script>
 </body>
